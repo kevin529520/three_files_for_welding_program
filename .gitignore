@@ -1,0 +1,4 @@
+*.F90
+!qsadd.F90
+!heatfl.F90
+!forcal.F90
