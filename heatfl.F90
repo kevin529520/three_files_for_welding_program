@@ -1,4 +1,4 @@
-      subroutine heatfl(i,j,k,heatfl1,heatfl2)
+subroutine heatfl(i,j,k,heatfl1,heatfl2)
 !c
 !c  add heat sources to fluid
 !c
@@ -66,7 +66,7 @@
 !c ------  look for phantom obstacle of type ifob=2 in cell
 !c
 !c     
-       !c 一道仿真
+       if(t.lt.40)then
              if((xi(i)-dum13*t).ge.apx)  then
          	    argexp=(xi(i)-apx-dum13*t)**2/dum7**2+(yj(j)-apy)**2/dum8**2+(zk(k)-apz)**2/dum9**2 !c热源范围  动态位置  apz=0.001
          	    if(argexp.lt.3.0) then  !c限定热源范围
@@ -82,46 +82,45 @@
          		    vph=10**(dum20+6.121-18836/tn(ijk)-0.5*log10(tn(ijk)))
          		    bamp2=dum19*vph
          		    bamp=bamp1-bamp2
-                    endif
+	        	    endif
              endif
-       !c两道仿真  xi随时间变化 第一道为xi(i)-apx-dum13*t 第二道应该为xi(i)-apx-dum13*（t-40）zk(k)-apz-0.06
-       !if(t.lt.40)then
-       !      if((xi(i)-dum13*t).ge.apx)  then
-       !  	    argexp=(xi(i)-apx-dum13*t)**2/dum7**2+(yj(j)-apy)**2/dum8**2+(zk(k)-apz)**2/dum9**2 !c热源范围  动态位置  apz=0.001
-       !  	    if(argexp.lt.3.0) then  !c限定热源范围
-       !  		    bamp1=Qm*1.4*exp(-3*argexp)/dum7
-       !  		    vph=10**(dum20+6.121-18836/tn(ijk)-0.5*log10(tn(ijk)))
-       !  		    bamp2=dum19*vph
-       !  		    bamp=bamp1-bamp2
-       !  	    endif
-       !      else
-       ! 	    argexp=(xi(i)-apx-dum13*t)**2/dum6**2+(yj(j)-apy)**2/dum8**2+(zk(k)-apz)**2/dum9**2
-       !             if(argexp.lt.3.0) then
-       !  		    bamp1=Qm*0.6*exp(-3*argexp)/dum6
-       !  		    vph=10**(dum20+6.121-18836/tn(ijk)-0.5*log10(tn(ijk)))
-       !  		    bamp2=dum19*vph
-       !  		    bamp=bamp1-bamp2
-	      !  	    endif
-       !      endif
-       !else
-       !    if((xi(i)-dum13*t).ge.apx)  then
-       ! 	    argexp=(xi(i)-apx-dum13*t)**2/dum7**2+(yj(j)-apy)**2/dum8**2+(zk(k)-apz-0.06)**2/dum9**2 !c热源范围  动态位置
-       !  	    if(argexp.lt.3.0) then  !c限定热源范围
-       ! 		    bamp1=Qm*1.4*exp(-3*argexp)/dum7
-       !  		    vph=10**(dum20+6.121-18836/tn(ijk)-0.5*log10(tn(ijk)))
-       !  		    bamp2=dum19*vph
-       !  		    bamp=bamp1-bamp2
-       !  	    endif
-       !      else
-       ! 	    argexp=(xi(i)-apx-dum13*t)**2/dum6**2+(yj(j)-apy)**2/dum8**2+(zk(k)-apz-0.06)**2/dum9**2
-       !             if(argexp.lt.3.0) then
-       !  		    bamp1=Qm*0.6*exp(-3*argexp)/dum6
-       !  		    vph=10**(dum20+6.121-18836/tn(ijk)-0.5*log10(tn(ijk)))
-       !  		    bamp2=dum19*vph
-       !  		    bamp=bamp1-bamp2
-	      !  	    endif
-       !      endif
-       !endif
+       else if(t.ge.40 .AND. t.lt.80) then
+            if((xi(i)-dum13*(t-40)).ge.apx)  then  !c t-40
+        	    argexp=(xi(i)-apx-dum13*(t-40))**2/dum7**2+(yj(j)-apy)**2/dum8**2+(zk(k)-apz-0.006)**2/dum9**2 !c热源范围  动态位置  !c t-40
+         	    if(argexp.lt.3.0) then  !c限定热源范围
+        		    bamp1=Qm*1.4*exp(-3*argexp)/dum7
+         		    vph=10**(dum20+6.121-18836/tn(ijk)-0.5*log10(tn(ijk)))
+         		    bamp2=dum19*vph
+         		    bamp=bamp1-bamp2
+         	    endif
+             else
+        	    argexp=(xi(i)-apx-dum13*(t-40))**2/dum6**2+(yj(j)-apy)**2/dum8**2+(zk(k)-apz-0.006)**2/dum9**2
+                    if(argexp.lt.3.0) then
+         		    bamp1=Qm*0.6*exp(-3*argexp)/dum6
+         		    vph=10**(dum20+6.121-18836/tn(ijk)-0.5*log10(tn(ijk)))
+         		    bamp2=dum19*vph
+         		    bamp=bamp1-bamp2
+	        	    endif
+             endif
+       else if(t.ge.80 .AND. t.lt.120) then
+             if((xi(i)-dum13*(t-80)).ge.apx)  then  !c t-40
+        	    argexp=(xi(i)-apx-dum13*(t-80))**2/dum7**2+(yj(j)-apy)**2/dum8**2+(zk(k)-apz-0.013)**2/dum9**2 !c热源范围  动态位置  !c t-40
+         	    if(argexp.lt.3.0) then  !c限定热源范围
+        		    bamp1=Qm*1.4*exp(-3*argexp)/dum7
+         		    vph=10**(dum20+6.121-18836/tn(ijk)-0.5*log10(tn(ijk)))
+         		    bamp2=dum19*vph
+         		    bamp=bamp1-bamp2
+         	    endif
+             else
+        	    argexp=(xi(i)-apx-dum13*(t-80))**2/dum6**2+(yj(j)-apy)**2/dum8**2+(zk(k)-apz-0.013)**2/dum9**2
+                    if(argexp.lt.3.0) then
+         		    bamp1=Qm*0.6*exp(-3*argexp)/dum6
+         		    vph=10**(dum20+6.121-18836/tn(ijk)-0.5*log10(tn(ijk)))
+         		    bamp2=dum19*vph
+         		    bamp=bamp1-bamp2
+	        	    endif
+             endif
+       endif
 !c
 !c
       heatfl1=bamp/rho(ijk)  !c       rho(ijk)       density in cell (only for variable density)
