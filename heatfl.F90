@@ -86,7 +86,7 @@ subroutine heatfl(i,j,k,heatfl1,heatfl2)
              endif
        else if(t.ge.40 .AND. t.lt.80) then
             if((xi(i)-dum13*(t-40)).ge.apx)  then  !c t-40
-        	    argexp=(xi(i)-apx-dum13*(t-40))**2/dum7**2+(yj(j)-apy)**2/dum8**2+(zk(k)-apz-0.006)**2/dum9**2 !c热源范围  动态位置  !c t-40
+        	    argexp=(xi(i)-apx-dum13*(t-40))**2/dum7**2+(yj(j)-apy-0.003)**2/dum8**2+(zk(k)-apz-0.006)**2/dum9**2 !c热源范围  动态位置  !c t-40
          	    if(argexp.lt.3.0) then  !c限定热源范围
         		    bamp1=Qm*1.4*exp(-3*argexp)/dum7
          		    vph=10**(dum20+6.121-18836/tn(ijk)-0.5*log10(tn(ijk)))
@@ -94,7 +94,7 @@ subroutine heatfl(i,j,k,heatfl1,heatfl2)
          		    bamp=bamp1-bamp2
          	    endif
              else
-        	    argexp=(xi(i)-apx-dum13*(t-40))**2/dum6**2+(yj(j)-apy)**2/dum8**2+(zk(k)-apz-0.006)**2/dum9**2
+        	    argexp=(xi(i)-apx-dum13*(t-40))**2/dum6**2+(yj(j)-apy-0.003)**2/dum8**2+(zk(k)-apz-0.006)**2/dum9**2
                     if(argexp.lt.3.0) then
          		    bamp1=Qm*0.6*exp(-3*argexp)/dum6
          		    vph=10**(dum20+6.121-18836/tn(ijk)-0.5*log10(tn(ijk)))
@@ -104,7 +104,7 @@ subroutine heatfl(i,j,k,heatfl1,heatfl2)
              endif
        else if(t.ge.80 .AND. t.lt.120) then
              if((xi(i)-dum13*(t-80)).ge.apx)  then  !c t-40
-        	    argexp=(xi(i)-apx-dum13*(t-80))**2/dum7**2+(yj(j)-apy)**2/dum8**2+(zk(k)-apz-0.013)**2/dum9**2 !c热源范围  动态位置  !c t-40
+        	    argexp=(xi(i)-apx-dum13*(t-80))**2/dum7**2+(yj(j)-apy-0.006)**2/dum8**2+(zk(k)-apz-0.013)**2/dum9**2 !c热源范围  动态位置  !c t-40
          	    if(argexp.lt.3.0) then  !c限定热源范围
         		    bamp1=Qm*1.4*exp(-3*argexp)/dum7
          		    vph=10**(dum20+6.121-18836/tn(ijk)-0.5*log10(tn(ijk)))
@@ -112,7 +112,7 @@ subroutine heatfl(i,j,k,heatfl1,heatfl2)
          		    bamp=bamp1-bamp2
          	    endif
              else
-        	    argexp=(xi(i)-apx-dum13*(t-80))**2/dum6**2+(yj(j)-apy)**2/dum8**2+(zk(k)-apz-0.013)**2/dum9**2
+        	    argexp=(xi(i)-apx-dum13*(t-80))**2/dum6**2+(yj(j)-apy-0.006)**2/dum8**2+(zk(k)-apz-0.013)**2/dum9**2
                     if(argexp.lt.3.0) then
          		    bamp1=Qm*0.6*exp(-3*argexp)/dum6
          		    vph=10**(dum20+6.121-18836/tn(ijk)-0.5*log10(tn(ijk)))

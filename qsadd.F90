@@ -262,11 +262,11 @@ subroutine qsadd
 	    zdrop=dum12+0.001
 	    xdrop=dum10+dum13*t
     elseif(t.ge.40 .AND. t.lt.80) then
-        ydrop=dum11  ! dum11=0.063     dum12=0.001,    dum13=0.005,  dum10=0.0,dum17=0.1,    dum18=1800,
+        ydrop=dum11+0.003  ! dum11=0.063     dum12=0.001,    dum13=0.005,  dum10=0.0,dum17=0.1,    dum18=1800,
 	    zdrop=dum12+0.007!+0.002  更改
 	    xdrop=dum10+dum13*(t-40)   !c 更改 t-40
     elseif(t.ge.80 .AND. t.lt.120) then
-        ydrop=dum11  ! dum11=0.063     dum12=0.001,    dum13=0.005,  dum10=0.0,dum17=0.1,    dum18=1800,
+        ydrop=dum11+0.006  ! dum11=0.063     dum12=0.001,    dum13=0.005,  dum10=0.0,dum17=0.1,    dum18=1800,
 	    zdrop=dum12+0.014!+0.002  更改
 	    xdrop=dum10+dum13*(t-80)   !c 更改 t-40   
     
